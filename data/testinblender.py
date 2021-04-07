@@ -6,7 +6,7 @@ name = 'stars'
 
 
 #get csv file
-with open("C:/Users/836844/Documents/starchart/visiblestars.csv", "r") as file:
+with open("visiblestars.csv", "r") as file:
     reader = csv.reader(file)
     next(reader)
     #add spheres to screen
