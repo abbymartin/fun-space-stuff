@@ -18,6 +18,6 @@ function readFile(file) {
     })
  }
 //print data 
-readFile('https://abbymartin.github.io/fun-space-stuff/data/visiblestarsjson.json');
+readFile('https://abbymartin.github.io/fun-space-stuff/website/visiblestarsjson.json');
 
 //add stuff to scene
