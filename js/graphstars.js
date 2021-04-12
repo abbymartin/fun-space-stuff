@@ -41,7 +41,7 @@ async function createMap() {
   }
 
   //set camera distance
-  camera.position.z = 50;
+  camera.position.z = 100;
 
   //render graphics
   renderer.render(scene, camera);
