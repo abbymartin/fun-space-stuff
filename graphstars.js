@@ -1,23 +1,21 @@
-//open json file at ../data/visiblestarsjson.json to use in js
-console.log("test");
-
 //fetch request
-function readFile(file) {
-    fetch(file)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("HTTP error :( " + response.status);
-        }
-        return response.json();
-    })
-    .then(json => {
-        console.log(json);
-    })
-    .catch(function () {
-        this.dataError = true;
-    })
- }
-//print data 
-readFile('https://abbymartin.github.io/fun-space-stuff/website/visiblestars.json');
+let url = 'https://abbymartin.github.io/fun-space-stuff/website/visiblestars.json'
 
-//add stuff to scene
+async function readFile() {
+    let response = await fetch(url);
+  
+    if (!response.ok) {
+      throw new Error(`HTTP error :( ${response.status}`);
+    }
+    let data = await response.json(); 
+    console.log(data);
+  }
+  
+  readFile()
+  .catch(e => {
+    console.log('error: ' + e.message);
+  });
+
+
+
+
