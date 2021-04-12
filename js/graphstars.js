@@ -1,5 +1,5 @@
 //fetch request
-let url = 'https://abbymartin.github.io/fun-space-stuff/website/visiblestars.json'
+let url = 'https://abbymartin.github.io/fun-space-stuff/visiblestars.json'
 
 async function readFile() {
     let response = await fetch(url);
