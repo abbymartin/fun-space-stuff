@@ -9,13 +9,11 @@ async function readFile() {
     }
     let data = await response.json(); 
     console.log(data);
-  }
-  
-  readFile()
-  .catch(e => {
-    console.log('error: ' + e.message);
-  });
 
+    
+  }
+
+readFile();
 
 
 
