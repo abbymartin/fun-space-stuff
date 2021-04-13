@@ -36,19 +36,36 @@ function drawScene(data) {
   //three.js setup
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer();
-  
 
+  const renderer = new THREE.WebGLRenderer();
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
+
+  const controls = new THREE.TrackballControls(camera, renderer.domElement);
+  //set up mouse control 
+  controls.target.set(0, 0, 0);
+  controls.userPan = true;
+  controls.userRotate = true;
+
 
   addStars(data, scene);
 
   //set camera distance
-  camera.position.z = 100;
+  camera.position.z = 20;
 
-  //render graphics (add animate here when needed)
-  renderer.render(scene, camera);
+  renderScene(scene, camera, renderer, controls);
+}
+
+function renderScene(scene, camera, renderer, controls) {
+
+  let animate = () => {
+    //add animation loop
+    requestAnimationFrame(animate)
+    renderer.render(scene, camera);
+    controls.update();
+  }
+    
+    animate();
 }
 
 async function createMap() {
@@ -63,7 +80,6 @@ async function createMap() {
 
   drawScene(data);
 }
-
 
 createMap();
 
