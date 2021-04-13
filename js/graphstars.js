@@ -1,9 +1,9 @@
 //get data from database and create map of stars
 
 /*TODO: 
-- moveable camera
+- moveable camera: DONE
 - effect when click on star
-- group constellations
+- group constellations together 
 - search bar
 - add more stars (dynamic loading?)
 */
