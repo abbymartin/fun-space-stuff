@@ -3,6 +3,7 @@
 /*TODO: 
 - moveable camera: DONE
 - effect when click on star
+- show data about star when clicked
 - group constellations together 
 - search bar
 - add more stars (dynamic loading?)
@@ -32,10 +33,25 @@ function addStars(data, scene) {
   }
 }
 
+function addStats() {
+  var stats = new Stats();
+  stats.setMode(0);
+
+  stats.domElement.style.position = 'absolute';
+  stats.domElement.style.left = '0';
+  stats.domElement.style.top = '0';
+
+  return stats;
+}
+
 function drawScene(data) {
   //three.js setup
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+  //show framerate
+  let stats = addStats();
+  document.body.appendChild(stats.domElement);
 
   const renderer = new THREE.WebGLRenderer();
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -47,22 +63,22 @@ function drawScene(data) {
   controls.userPan = true;
   controls.userRotate = true;
 
-
   addStars(data, scene);
 
   //set camera distance
   camera.position.z = 20;
 
-  renderScene(scene, camera, renderer, controls);
+  renderScene(scene, camera, renderer, controls, stats);
 }
 
-function renderScene(scene, camera, renderer, controls) {
+function renderScene(scene, camera, renderer, controls, stats) {
 
   let animate = () => {
     //add animation loop
     requestAnimationFrame(animate)
     renderer.render(scene, camera);
     controls.update();
+    stats.update();
   }
     
     animate();
