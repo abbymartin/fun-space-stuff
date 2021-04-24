@@ -2,7 +2,7 @@
 
 /*TODO: 
 - moveable camera: DONE
-- effect when click on star
+- effect when click on star 
 - show data about star when clicked
 - group constellations together 
 - search bar
@@ -11,8 +11,17 @@
 
 let url = 'https://abbymartin.github.io/fun-space-stuff/visiblestars.json'
 
-function addStars(data, scene) {
+//scene vars
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer();
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+//add stars from json data
+function addStars(data) {
   let stars = [];
+  let hitboxes = [];
 
   const geometry = new THREE.SphereGeometry();
   const material = new THREE.MeshBasicMaterial({color: 0xFFFFFF})
@@ -33,46 +42,38 @@ function addStars(data, scene) {
   }
 }
 
-function addStats() {
-  var stats = new Stats();
-  stats.setMode(0);
-
-  stats.domElement.style.position = 'absolute';
-  stats.domElement.style.left = '0';
-  stats.domElement.style.top = '0';
-
-  return stats;
-}
-
+//setup scene and make it work
 function drawScene(data) {
-  //three.js setup
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  document.addEventListener('pointerdown', (event) => {
+    interact();
+  });
 
   //show framerate
   let stats = addStats();
   document.body.appendChild(stats.domElement);
 
-  const renderer = new THREE.WebGLRenderer();
+  //threejs setup
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
-
+  
   const controls = new THREE.TrackballControls(camera, renderer.domElement);
-  //set up mouse control 
   controls.target.set(0, 0, 0);
   controls.userPan = true;
   controls.userRotate = true;
-
-  addStars(data, scene);
-
+  addStars(data);
   //set camera distance
   camera.position.z = 20;
 
-  renderScene(scene, camera, renderer, controls, stats);
+  renderScene(controls, stats);
 }
 
-function renderScene(scene, camera, renderer, controls, stats) {
+//what to do when mouse pressed
+function interact() {
+  console.log("click!!");
+}
 
+//render and animate scene
+function renderScene(controls, stats) {
   let animate = () => {
     //add animation loop
     requestAnimationFrame(animate)
@@ -80,10 +81,10 @@ function renderScene(scene, camera, renderer, controls, stats) {
     controls.update();
     stats.update();
   }
-    
-    animate();
+  animate();
 }
 
+//get json data and use it
 async function createMap() {
   //get json from url
   let response = await fetch(url);
@@ -99,5 +100,16 @@ async function createMap() {
 
 createMap();
 
+//framerate
+function addStats() {
+  var stats = new Stats();
+  stats.setMode(0);
+
+  stats.domElement.style.position = 'absolute';
+  stats.domElement.style.left = '0';
+  stats.domElement.style.top = '0';
+
+  return stats;
+}
 
 
