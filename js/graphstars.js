@@ -37,6 +37,7 @@ function addStars(data) {
     stars[i].scale.x = 0.1;
     stars[i].scale.y = 0.1;
     stars[i].scale.z = 0.1;
+    stars[i].name = i;
 
     scene.add(stars[i]);
   }
@@ -44,10 +45,6 @@ function addStars(data) {
 
 //setup scene and make it work
 function drawScene(data) {
-  document.addEventListener('pointerdown', (event) => {
-    interact();
-  });
-
   //show framerate
   let stats = addStats();
   document.body.appendChild(stats.domElement);
@@ -67,9 +64,30 @@ function drawScene(data) {
   renderScene(controls, stats);
 }
 
-//what to do when mouse pressed
-function interact() {
-  console.log("click!!");
+//interactvity
+document.addEventListener("mousemove", (event) => {
+  //update mouse positon
+  mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+  
+  interact(false);
+});
+
+document.addEventListener("pointerdown", (event) => {
+  interact(true);
+});
+
+function interact(clicked) {
+  const intersects = raycaster.intersectObjects(scene.children);
+  if(intersects.length > 0) {
+    document.body.style.cursor = "pointer";
+    if(clicked) {
+      console.log(intersects[0].object.name);
+    }
+  }
+  else {
+    document.body.style.cursor = "default";
+  }
 }
 
 //render and animate scene
@@ -77,9 +95,10 @@ function renderScene(controls, stats) {
   let animate = () => {
     //add animation loop
     requestAnimationFrame(animate)
-    renderer.render(scene, camera);
     controls.update();
     stats.update();
+    raycaster.setFromCamera( mouse, camera );
+    renderer.render(scene, camera);
   }
   animate();
 }
