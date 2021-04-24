@@ -64,25 +64,12 @@ function drawScene(data) {
   renderScene(controls, stats);
 }
 
-//interactvity
-document.addEventListener("mousemove", (event) => {
-  //update mouse positon
-  mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-  
-  interact(false);
-});
-
-document.addEventListener("pointerdown", (event) => {
-  interact(true);
-});
-
-function interact(clicked) {
+function interact(clicked, data) {
   const intersects = raycaster.intersectObjects(scene.children);
   if(intersects.length > 0) {
     document.body.style.cursor = "pointer";
     if(clicked) {
-      console.log(intersects[0].object.name);
+      console.log(data[intersects[0].object.name].proper);
     }
   }
   else {
@@ -115,6 +102,18 @@ async function createMap() {
   console.log(data);
 
   drawScene(data);
+
+  //interactvity
+  document.addEventListener("mousemove", (event) => {
+    //update mouse positon
+    mouse.x = (event.clientX / window.innerWidth ) * 2 - 1;
+    mouse.y = - (event.clientY / window.innerHeight ) * 2 + 1;
+    interact(false, data);
+  });
+
+  document.addEventListener("pointerdown", (event) => {
+    interact(true, data);
+  });
 }
 
 createMap();
