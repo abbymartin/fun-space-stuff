@@ -2,14 +2,14 @@
 
 /*TODO: 
 - moveable camera: DONE
-- effect when click on star 
+- effect when click on star: DONE
 - show data about star when clicked
 - group constellations together 
 - search bar
 - add more stars (dynamic loading?)
 */
 
-let url = 'https://abbymartin.github.io/fun-space-stuff/visiblestars.json'
+let url = 'https://abbymartin.github.io/fun-space-stuff/hygstars.json'
 
 //scene vars
 const scene = new THREE.Scene();
