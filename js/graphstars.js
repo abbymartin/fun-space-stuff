@@ -1,6 +1,7 @@
 //get data from database and create map of stars
 
 /*TODO: 
+- FIX EVERYTHING I RUINED LMAO 
 - moveable camera: DONE
 - effect when click on star: DONE
 - show data about star when clicked
@@ -9,7 +10,7 @@
 - add more stars (dynamic loading?)
 */
 
-let url = 'https://abbymartin.github.io/fun-space-stuff/hygstars.json'
+let url = 'https://abbymartin.github.io/fun-space-stuff/visiblestars.json'
 
 //scene vars
 const scene = new THREE.Scene();
@@ -21,26 +22,27 @@ const mouse = new THREE.Vector2();
 //add stars from json data
 function addStars(data) {
   let stars = [];
-  let hitboxes = [];
+  let starMeshes = [];
 
-  const geometry = new THREE.SphereGeometry();
-  const material = new THREE.MeshBasicMaterial({color: 0xFFFFFF})
+  //const geometry = new THREE.SphereBufferGeometry(0.05, 32, 32);
+  const material = new THREE.MeshBasicMaterial({color: 0xff00ff});
 
   //add spheres at star positions
   for(let i = 0; i < data.length; i++) {
-    stars.push(new THREE.Mesh(geometry, material));
-
+    stars.push(new THREE.SphereGeometry(1, 8, 8));
+    starMeshes.push(new THREE.Mesh(stars[i], material));
     //set position and size
-    stars[i].position.x = data[i].x;
-    stars[i].position.y = data[i].y;
-    stars[i].position.z = data[i].z;
-    stars[i].scale.x = 0.1;
-    stars[i].scale.y = 0.1;
-    stars[i].scale.z = 0.1;
-    stars[i].name = i;
-
-    scene.add(stars[i]);
+    starMeshes[i].position.x = data[i].x;
+    starMeshes[i].position.y = data[i].y;
+    starMeshes[i].position.z = data[i].z;
+    starMeshes[i].name = i;
+    starMeshes[i].updateMatrix();
+    
+    //scene.add(starMeshes[i]);
   }
+  const mergeGeo = THREE.BufferGeometryUtils.mergeBufferGeometries(stars);
+  const mesh = new THREE.Mesh(mergeGeo, material);
+  scene.add(mesh);
 }
 
 //setup scene and make it work
