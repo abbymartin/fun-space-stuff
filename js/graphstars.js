@@ -1,16 +1,16 @@
 //get data from database and create map of stars
 
 /*TODO: 
-- FIX EVERYTHING I RUINED LMAO 
 - moveable camera: DONE
-- effect when click on star: DONE
+- merge geometries: DONE
+- effect when click on star (need to redo)
 - show data about star when clicked
 - group constellations together 
 - search bar
-- add more stars (dynamic loading?)
+- add more stars: DONE
 */
 
-let url = 'https://abbymartin.github.io/fun-space-stuff/visiblestars.json'
+let url = 'https://abbymartin.github.io/fun-space-stuff/hygstars.json'
 
 //scene vars
 const scene = new THREE.Scene();
@@ -22,25 +22,23 @@ const mouse = new THREE.Vector2();
 //add stars from json data
 function addStars(data) {
   let stars = [];
-  let starMeshes = [];
+  let starGeos = [];
 
   //const geometry = new THREE.SphereBufferGeometry(0.05, 32, 32);
-  const material = new THREE.MeshBasicMaterial({color: 0xff00ff});
+  const material = new THREE.MeshBasicMaterial({color: 0xffffff});
 
   //add spheres at star positions
   for(let i = 0; i < data.length; i++) {
-    stars.push(new THREE.SphereGeometry(1, 8, 8));
-    starMeshes.push(new THREE.Mesh(stars[i], material));
-    //set position and size
-    starMeshes[i].position.x = data[i].x;
-    starMeshes[i].position.y = data[i].y;
-    starMeshes[i].position.z = data[i].z;
-    starMeshes[i].name = i;
-    starMeshes[i].updateMatrix();
-    
-    //scene.add(starMeshes[i]);
+    stars.push(new THREE.Mesh(new THREE.SphereBufferGeometry(0.05, 6, 6), material));
+
+    stars[i].position.set(data[i].x, data[i].y, data[i].z);
+    stars[i].name = i;
+    stars[i].updateMatrix();
+    stars[i].geometry.applyMatrix4(stars[i].matrix);
+
+    starGeos[i] = stars[i].geometry;
   }
-  const mergeGeo = THREE.BufferGeometryUtils.mergeBufferGeometries(stars);
+  const mergeGeo = THREE.BufferGeometryUtils.mergeBufferGeometries(starGeos);
   const mesh = new THREE.Mesh(mergeGeo, material);
   scene.add(mesh);
 }
@@ -105,17 +103,18 @@ async function createMap() {
 
   drawScene(data);
 
-  //interactvity
-  document.addEventListener("mousemove", (event) => {
-    //update mouse positon
-    mouse.x = (event.clientX / window.innerWidth ) * 2 - 1;
-    mouse.y = - (event.clientY / window.innerHeight ) * 2 + 1;
-    interact(false, data);
-  });
+  //FIX LATER 
+  // //interactvity
+  // document.addEventListener("mousemove", (event) => {
+  //   //update mouse positon
+  //   mouse.x = (event.clientX / window.innerWidth ) * 2 - 1;
+  //   mouse.y = - (event.clientY / window.innerHeight ) * 2 + 1;
+  //   interact(false, data);
+  // });
 
-  document.addEventListener("pointerdown", (event) => {
-    interact(true, data);
-  });
+  // document.addEventListener("pointerdown", (event) => {
+  //   interact(true, data);
+  // });
 }
 
 createMap();
