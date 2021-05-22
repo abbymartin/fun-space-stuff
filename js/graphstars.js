@@ -18,12 +18,11 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 const renderer = new THREE.WebGLRenderer();
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
+let stars = [];
+let starGeos = [];
 
 //add stars from json data
 function addStars(data) {
-  let stars = [];
-  let starGeos = [];
-
   //const geometry = new THREE.SphereBufferGeometry(0.05, 32, 32);
   const material = new THREE.MeshBasicMaterial({color: 0xffffff});
 
@@ -65,7 +64,7 @@ function drawScene(data) {
 }
 
 function interact(clicked, data) {
-  const intersects = raycaster.intersectObjects(scene.children);
+  const intersects = raycaster.intersectObjects(stars);
   if(intersects.length > 0) {
     document.body.style.cursor = "pointer";
     if(clicked) {
@@ -105,16 +104,16 @@ async function createMap() {
 
   //FIX LATER 
   // //interactvity
-  // document.addEventListener("mousemove", (event) => {
-  //   //update mouse positon
-  //   mouse.x = (event.clientX / window.innerWidth ) * 2 - 1;
-  //   mouse.y = - (event.clientY / window.innerHeight ) * 2 + 1;
-  //   interact(false, data);
-  // });
+  document.addEventListener("mousemove", (event) => {
+    //update mouse positon
+    mouse.x = (event.clientX / window.innerWidth ) * 2 - 1;
+    mouse.y = - (event.clientY / window.innerHeight ) * 2 + 1;
+    interact(false, data);
+  });
 
-  // document.addEventListener("pointerdown", (event) => {
-  //   interact(true, data);
-  // });
+  document.addEventListener("pointerdown", (event) => {
+    interact(true, data);
+  });
 }
 
 createMap();
