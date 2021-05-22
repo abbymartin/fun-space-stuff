@@ -1,13 +1,12 @@
 * {
-    background-color: black;
+    background-color: #24233b;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    color:white;
+    color: #d1d5dd;
 }
 p, h1 {
-    color: white;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family:'Vollkorn', serif;
     text-align: center;
     padding: 10px;
 }

@@ -40,6 +40,7 @@ function addStars(data) {
   const mergeGeo = THREE.BufferGeometryUtils.mergeBufferGeometries(starGeos);
   const mesh = new THREE.Mesh(mergeGeo, material);
   scene.add(mesh);
+  document.getElementById("load").remove();
 }
 
 //setup scene and make it work
