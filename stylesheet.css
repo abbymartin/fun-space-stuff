@@ -1,16 +1,29 @@
 * {
-    background-color: #24233b;
     margin: 0;
     padding: 0;
-    overflow: hidden;
     color: #d1d5dd;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+
+    background:#24233b url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png) repeat;
+    background-attachment: fixed;
 }
+
+::-webkit-scrollbar { /* WebKit */
+    width: 0;
+    height: 0;
+}
+
 p, h1 {
     font-family:'Vollkorn', serif;
     text-align: center;
-    padding: 10px;
+    padding: 20px 20%;
 }
 
 a {
     text-decoration: underline;
 }
+
+
+
+
