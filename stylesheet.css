@@ -14,8 +14,16 @@
     height: 0;
 }
 
-p, h1 {
+h1 {
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+    font-size: xxx-large;
+    padding: 20px;
+}
+
+p {
     font-family:'Vollkorn', serif;
+    font-size: large;
     text-align: center;
     padding: 20px 20%;
 }
