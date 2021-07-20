@@ -18,7 +18,7 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 const renderer = new THREE.WebGLRenderer();
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
-const controls = new THREE.TrackballControls(camera, renderer.domElement);
+let controls;
 let stars = [];
 let starGeos = [];
 
@@ -53,6 +53,8 @@ function drawScene(data) {
   //threejs setup
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
+
+  controls = new THREE.TrackballControls(camera, renderer.domElement);
   controls.target.set(0, 0, 0);
   controls.userPan = true;
   controls.userRotate = true;
