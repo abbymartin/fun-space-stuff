@@ -10,7 +10,7 @@
 - add more stars: DONE
 */
 
-let url = 'https://abbymartin.github.io/fun-space-stuff/hygstars.json'
+let url = 'https://abbymartin.github.io/fun-space-stuff/visiblestars.json'
 
 //scene vars
 const scene = new THREE.Scene();
@@ -18,6 +18,7 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 const renderer = new THREE.WebGLRenderer();
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
+const controls = new THREE.TrackballControls(camera, renderer.domElement);
 let stars = [];
 let starGeos = [];
 
@@ -52,8 +53,6 @@ function drawScene(data) {
   //threejs setup
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
-  
-  const controls = new THREE.TrackballControls(camera, renderer.domElement);
   controls.target.set(0, 0, 0);
   controls.userPan = true;
   controls.userRotate = true;
@@ -69,7 +68,12 @@ function interact(clicked, data) {
   if(intersects.length > 0) {
     document.body.style.cursor = "pointer";
     if(clicked) {
+      let starPos = intersects[0].object.position;
+      console.log(starPos)
+      controls.target.set(starPos.x, starPos.y, starPos.z);
       console.log(data[intersects[0].object.name].proper);
+
+      camera.position.z = 2;
     }
   }
   else {

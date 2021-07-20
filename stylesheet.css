@@ -1,36 +1,24 @@
-* {
+/*NOTHING WORKS RN LMAOOOOO*/
+
+html {
+    height: 100vh;
+    overflow: hidden;
+}
+
+body {
+    background:#1d1824 url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png) repeat;
+    color: #d1d5dd;
     margin: 0;
     padding: 0;
-    color: #d1d5dd;
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    scrollbar-width: none;  /* Firefox */
-
-    background:#24233b url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png) repeat;
-    background-attachment: fixed;
-}
-
-::-webkit-scrollbar { /* WebKit */
-    width: 0;
-    height: 0;
-}
-
-h1 {
-    font-family: 'Raleway', sans-serif;
-    text-align: center;
-    font-size: xxx-large;
-    padding: 20px;
-}
-
-p {
+    perspective: 1px;
+    transform: preserve-3d;
+    overflow-y: scroll;
+    overflow-x: hidden;
     font-family:'Vollkorn', serif;
-    font-size: large;
-    text-align: center;
-    padding: 20px 20%;
 }
 
-a {
-    text-decoration: underline;
-}
+
+
 
 
 
