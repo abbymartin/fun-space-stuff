@@ -10,7 +10,7 @@
 - add more stars: DONE
 */
 
-let url = 'https://abbymartin.github.io/fun-space-stuff/visiblestars.json'
+let url = 'https://abbymartin.github.io/fun-space-stuff/hygstars.json'
 
 //scene vars
 const scene = new THREE.Scene();
